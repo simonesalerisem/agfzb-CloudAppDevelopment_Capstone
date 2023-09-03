@@ -24,59 +24,62 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
-        <!-- Navbar Brand -->
-        <a class="navbar-brand" href="/djangoapp/">My Cool Website</a>
 
-        <!-- Navbar Toggle Button for Mobile -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <!-- Navbar Links -->
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/djangoapp/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/djangoapp/about">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Services</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Portfolio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/djangoapp/contacts">Contact</a>
-                </li>
+        <div class="collapse navbar-collapse" id="navbarNav"></div>
+        <div class="container">
+            <div class="row">
 
-                <!-- Username Section -->
-                {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <p class="nav-link">Hello, User123!</p> <!-- Replace with the actual username -->
-                </li>
-                <!-- Logout Button -->
-                <li class="nav-item">
-                    <a class="nav-link btn btn-danger" href="/logout">Logout</a> <!-- Link to the logout action -->
-                </li>
-                {% else %}
-                <!-- Login Dropdown -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="loginDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Login
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="loginDropdown">
-                        {% include 'djangoapp/login.html' %}
+                <div class="col">
+                    <a class="navbar-brand" href="/djangoapp/">My Cool Website</a>
+                </div>
+                <div class="col-6">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/djangoapp/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/djangoapp/about">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Portfolio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/djangoapp/contacts">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <ul class="navbar-nav ml-auto">
 
-                    </div>
-                </li>
-                {% endif %}
-                <!-- Login Dropdown (optional) -->
-                <!-- ... (Keep your login dropdown if needed) -->
-            </ul>
+                        <!-- Username Section -->
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <p class="nav-link">Hello, User123!</p> <!-- Replace with the actual username -->
+                        </li>
+                        <!-- Logout Button -->
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-danger" href="/logout">Logout</a>
+                            <!-- Link to the logout action -->
+                        </li>
+                        {% else %}
+                        <!-- Login Dropdown -->
+                        <li class="nav-item">
+                            {% include 'djangoapp/login.html' %}
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
         </div>
+    </div>
+
     </div>
 </nav>
