@@ -1,14 +1,38 @@
 <!-- Navbar -->
+<style>
+    /* Navbar background and text color */
+    .navbar-dark {
+        background-color: #333;
+        color: #fff;
+    }
+
+    /* Navbar brand text color */
+    .navbar-brand {
+        color: #fff;
+    }
+
+    /* Navbar link text color */
+    .navbar-nav .nav-link {
+        color: #fff;
+    }
+
+    /* Navbar link hover color */
+    .navbar-nav .nav-link:hover {
+        color: #ffcc00;
+    }
+</style>
+<!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
         <!-- Navbar Brand -->
         <a class="navbar-brand" href="/djangoapp/">My Cool Website</a>
-        
+
         <!-- Navbar Toggle Button for Mobile -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        
+
         <!-- Navbar Links -->
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
@@ -27,6 +51,31 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/djangoapp/contacts">Contact</a>
                 </li>
+
+                <!-- Username Section -->
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <p class="nav-link">Hello, User123!</p> <!-- Replace with the actual username -->
+                </li>
+                <!-- Logout Button -->
+                <li class="nav-item">
+                    <a class="nav-link btn btn-danger" href="/logout">Logout</a> <!-- Link to the logout action -->
+                </li>
+                {% else %}
+                <!-- Login Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="loginDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Login
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="loginDropdown">
+                        {% include 'djangoapp/login.html' %}
+
+                    </div>
+                </li>
+                {% endif %}
+                <!-- Login Dropdown (optional) -->
+                <!-- ... (Keep your login dropdown if needed) -->
             </ul>
         </div>
     </div>

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, redirect
@@ -53,6 +53,21 @@ def get_aboutus(request):
     if request.method == "GET":
         return render(request, 'djangoapp/about.html', context)
 
+def authenticate_user(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            # Redirect to a success page or homepage
+            return redirect('/djangoapp')  # Replace with the desired success page URL
+        else:
+            # Authentication failed, you can handle this accordingly (e.g., display an error message)
+            return render(request, 'djangoapp/login.html', {'error_message': 'Invalid username or password'})
+
+    return render(request, 'djangoapp/login.html')
 
 # Create a `get_dealer_details` view to render the reviews of a dealer
 # def get_dealer_details(request, dealer_id):
