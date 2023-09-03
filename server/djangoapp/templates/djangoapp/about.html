@@ -37,11 +37,37 @@
 
 <body>
 
+{% include 'djangoapp/navbar.html' %}
 
-    {% include 'djangoapp/navbar.html' %}
-
-
-
+<!-- About Section -->
+<section class="about-section bg-dark text-white py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h1>
+                    Welcome to Best Cars dealership, home to the best cars in North America. We sell domestic and imported cars at reasonable prices.
+                    </h1>
+                <p class="lead">Learn More About Our Team</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h3 class="mb-4">Our Story</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, ligula eget bibendum sollicitudin, mauris ligula ullamcorper nisl.</p>
+                <p>Nulla facilisi. Sed tristique, nunc eu fringilla cursus, ipsum libero tristique neque, eget congue est nunc id neque.</p>
+            </div>
+            <div class="col-md-6">
+                <h3 class="mb-4">Our Team</h3>
+                <ul class="list-unstyled">
+                    <li><i class="bi bi-person"></i> John Doe - CEO</li>
+                    <li><i class="bi bi-person"></i> Jane Smith - CTO</li>
+                    <li><i class="bi bi-person"></i> David Johnson - CFO</li>
+                    <li><i class="bi bi-person"></i> Sarah Wilson - COO</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
