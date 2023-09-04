@@ -17,11 +17,10 @@ def main(param_dict):
     Returns:
         _type_: _description_ TODO
     """
-
     try:
         client = Cloudant.iam(
-            account_name=param_dict["COUCH_USERNAME"],
-            api_key=param_dict["IAM_API_KEY"],
+            account_name=param_dict["4d49b96f-55cf-4408-aa92-c8909489cff9-bluemix"],
+            api_key=param_dict["RivGlV8Chqh0-jAqxcI_vKV1FQj52lZIZavOu8eP5KLw"],
             connect=True,
         )
         print(f"Databases: {client.all_dbs()}")
