@@ -84,12 +84,6 @@ def get_login(request):
     
 def get_registration_view(request):
     context = {}
-    
-    # Check if the user is already logged in based on your custom condition
-    if user.is_authenticate:
-        # Redirect the user to a specific page if they meet the condition
-        return redirect('djangoapp')
-    
     if request.method == "GET":
         return render(request, 'djangoapp/registration.html', context)
     
