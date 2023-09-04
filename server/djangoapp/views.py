@@ -53,22 +53,69 @@ def get_aboutus(request):
     if request.method == "GET":
         return render(request, 'djangoapp/about.html', context)
 
-def authenticate_user(request):
-    if request.method == "POST":
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
+def get_user_logged_in(request):
+    if request.user.is_authenticated == True:
+        username = request.user.username
+    else:
+        username = None
+        return username
 
+def get_logout(request):
+    logout(request)
+    return redirect('/djangoapp')
+
+def get_login(request):
+    if request.method == 'POST':
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            # Redirect to a success page or homepage
-            return redirect('/djangoapp')  # Replace with the desired success page URL
+            return redirect("/djangoapp")  # Use 'return' to perform the redirection
         else:
-            # Authentication failed, you can handle this accordingly (e.g., display an error message)
-            return render(request, 'djangoapp/login.html', {'error_message': 'Invalid username or password'})
+            # Return an 'invalid login' error message.
+            # You can render a template or return an HttpResponse here.
+            # For example:
+            return render(request, 'login.html', {'error_message': 'Invalid login'})
+    else:
+        # Handle GET request, e.g., rendering the login form.
+        # You can render your login template here.
+        return render(request, 'login.html')
+    
+def get_registration_view(request):
+    context = {}
+    
+    # Check if the user is already logged in based on your custom condition
+    if user.is_authenticate:
+        # Redirect the user to a specific page if they meet the condition
+        return redirect('djangoapp')
+    
+    if request.method == "GET":
+        return render(request, 'djangoapp/registration.html', context)
+    
+def add_new_user(request):
+    if request.method == 'POST':
+        username = request.POST["username"]
+        email = request.POST["email"]
+        password = request.POST["password"]
+        confirm_password = request.POST["confirm_password"]
 
-    return render(request, 'djangoapp/login.html')
+        if password == confirm_password:
+            # Create a new user
+            user = User.objects.create_user(username=username, email=email, password=password)
+            login(request, user)  # Log in the user
+            return redirect("/djangoapp/new_user_success")  # Redirect to a success page
+        else:
+            # Passwords do not match; you can handle this error as needed.
+            error_message = "Passwords do not match"
+            return render(request, 'registration.html', {'error_message': error_message})
 
+    return render(request, 'registration.html')
+
+def get_new_user_success_view(request):
+    context = {}
+    if request.method == "GET":
+        return render(request, 'djangoapp/new_user_success.html', context)
 # Create a `get_dealer_details` view to render the reviews of a dealer
 # def get_dealer_details(request, dealer_id):
 # ...
