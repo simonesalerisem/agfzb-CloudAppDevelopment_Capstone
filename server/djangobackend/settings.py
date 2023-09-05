@@ -27,7 +27,7 @@ DEBUG = True
 
 APPEND_SLASH = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1','agfzb-cloud-app-development-capstone-simone-saleri-bsns-dev.apps.sandbox-m4.g2pi.p1.openshiftapps.com']
 
 
 # Application definition
