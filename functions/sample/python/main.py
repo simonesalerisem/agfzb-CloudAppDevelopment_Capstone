@@ -32,3 +32,4 @@ def main(param_dict):
         return {"error": err}
 
     return {"dbs": client.all_dbs()}
+
