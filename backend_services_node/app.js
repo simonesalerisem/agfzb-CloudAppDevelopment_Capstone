@@ -38,3 +38,29 @@ app.get('/api/dealerships', async (req, res) => {
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server running on port ${port}`));
+
+
+
+const { CloudantV1 ) = require('@ibm-cloud/cloudant');
+const { IamAuthenticator } = require('ibm-cloud-sdk-core');
+
+async function main(params) {
+    const authenticator
+        = new IamAuthenticator(apikey: params.IAM_API_KEY });
+const cloudant = CloudantV1.newinstance {
+
+    anthenticator: authenticator,
+});
+cloudant.setServicelr1(params.COUCH_URL)
+
+console.los("parametro: " ÷ params.state)
+if (!params.state)‹
+
+let dbListPromise = await getAllRecords(cloudant, 'dealerships");
+
+return dbListPromise;
+
+let selector = ("state": params.state!
+let dblistPromise = await getMatchingRecords(cloudant, 'dealerships' ‚ selector);
+return dbListPromise;
+}

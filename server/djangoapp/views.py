@@ -9,6 +9,7 @@ from django.contrib import messages
 from datetime import datetime
 import logging
 import json
+from .restapis import get_dealers_from_cf 
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -39,9 +40,14 @@ logger = logging.getLogger(__name__)
 
 # Update the `get_dealerships` view to render the index page with a list of dealerships
 def get_dealerships(request):
-    context = {}
     if request.method == "GET":
-        return render(request, 'djangoapp/index.html', context)
+        url = "https://us-south.functions.appdomain.cloud/api/v1/web/76b33dfb-93ac-4000-b268-73b293d81b15/dealership-package/dealer-get.json"
+        # Get dealers from the URL
+        dealerships = get_dealers_from_cf(url)
+        # Concat all dealer's short name
+        #dealer_names = ' '.join([dealer.short_name for dealer in dealerships])
+        # Return a list of dealer short name
+        return HttpResponse(dealerships)
 
 def get_contacts(request):
     context = {}
