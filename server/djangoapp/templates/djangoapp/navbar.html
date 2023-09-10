@@ -1,77 +1,69 @@
 <!-- Navbar -->
 <style>
     /* Navbar background and text color */
-    .navbar-dark {
-        background-color: #333;
-        color: #fff;
-    }
-
-    /* Navbar brand text color */
-    .navbar-brand {
-        color: #fff;
+    .bg-dark {
+        background-color: #333 !important;
     }
 
     /* Navbar link text color */
-    .navbar-nav .nav-link {
-        color: #fff;
+    .nav-link {
+        color: #fff !important;
     }
 
     /* Navbar link hover color */
-    .navbar-nav .nav-link:hover {
-        color: #ffcc00;
+    .nav-link:hover {
+        color: #ffcc00 !important;
+    }
+
+    /* Custom Styles */
+    .brand-logo {
+        font-size: 1.5rem;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+
+    .navbar-toggler {
+        border-color: #fff;
+    }
+
+    .btn-logout {
+        background-color: #ff0000;
+        border-color: #ff0000;
     }
 </style>
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container">
 
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand brand-logo" href="{% url 'djangoapp:index' %}">Car Dealership</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarNav"></div>
-        <div class="container">
-            <div class="row">
-                <div class="col-2">
-                    <a class="navbar-brand" href="{% url 'djangoapp:index' %}">Car Dealership</a>
-                </div>
-                <div class="col-4">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'djangoapp:index' %}">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'djangoapp:about' %}">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'djangoapp:contacts' %}">Contact</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col">
-                    <ul class="navbar-nav ml-auto justify-content-end">
-                        <!-- Username Section -->
-                        {% if user.is_authenticated %}
-                        <li class="nav-item">
-                            <p class="nav-link">Hello, {{ user.get_username }}!</p> <!-- Replace with the actual username -->
-                        </li>
-                        <!-- Logout Button -->
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-danger" href="{% url 'djangoapp:logout' %}">Logout</a>
-                            <!-- Link to the logout action -->
-                        </li>
-                        {% else %}
-                        <!-- Login Dropdown -->
-                        <li class="nav-item">
-                            {% include 'djangoapp/login.html' %}
-                        </li>
-                        {% endif %}
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'djangoapp:index' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'djangoapp:about' %}">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'djangoapp:contacts' %}">Contact</a>
+                </li>
+            </ul>
 
+            <!-- Username Section -->
+            {% if user.is_authenticated %}
+            <p class="navbar-text text-light">Hello, {{ user.get_username }}!</p> <!-- Replace with the actual username -->
+
+            <!-- Logout Button -->
+            <a class="btn btn-logout text-light" href="{% url 'djangoapp:logout' %}">Logout</a> <!-- Link to the logout action -->
+            {% else %}
+            <!-- Login Dropdown -->
+            {% include 'djangoapp/login.html' %}
+            {% endif %}
+        </div>
     </div>
 </nav>
