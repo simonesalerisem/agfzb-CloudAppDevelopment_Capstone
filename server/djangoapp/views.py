@@ -9,7 +9,7 @@ from django.contrib import messages
 from datetime import datetime
 import logging
 import json
-from .restapis import get_dealers_from_cf 
+from .restapis import get_dealers_from_cf, get_dealer_reviews_from_cf 
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -45,9 +45,26 @@ def get_dealerships(request):
         # Get dealers from the URL
         dealerships = get_dealers_from_cf(url)
         # Concat all dealer's short name
-        #dealer_names = ' '.join([dealer.short_name for dealer in dealerships])
+        dealer_names = ' '.join([dealer.short_name for dealer in dealerships])
         # Return a list of dealer short name
-        return HttpResponse(dealerships)
+        return HttpResponse(dealer_names)
+    
+
+def get_dealer_details(request, dealer_id):
+    if request.method == "GET":
+        # Define the URL
+        url = "https://us-south.functions.appdomain.cloud/api/v1/web/76b33dfb-93ac-4000-b268-73b293d81b15/review-package/review-get.json"  # replace with your actual URL
+        # Get reviews from the URL
+        reviews = get_dealer_reviews_from_cf(url, dealer_id)
+        
+        # Create a list of all review content
+        review_contents = [review.review for review in reviews]
+        
+        # Convert list to a single string with spaces
+        review_text = ' '.join(review_contents)
+        
+        # Return the review text
+        return HttpResponse(review_text)
 
 def get_contacts(request):
     context = {}

@@ -10,9 +10,6 @@ class CarMake(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
 
-    # You can add any other fields you would like to include in car make model here
-    # ...
-
     def __str__(self):
         return self.name
 
@@ -28,13 +25,10 @@ class CarModel(models.Model):
     ]
 
     car_make = models.ForeignKey(CarMake, related_name="car_models", on_delete=models.CASCADE)
-    dealer_id = models.IntegerField() # assuming dealer_id is an integer
+    dealer_id = models.IntegerField()
     name = models.CharField(max_length=255)
     type = models.CharField(max_length=2, choices=TYPE_CHOICES)
     year = models.DateField()
-
-    # You can add any other fields you would like to include in car model here
-    # ...
 
     def __str__(self):
         return self.name
@@ -65,4 +59,16 @@ class CarDealer:
         return "Dealer name: " + self.full_name
 
 
-# <HINT> Create a plain Python class `DealerReview` to hold review data
+class DealerReview:
+    def __init__(self, dealership, name, purchase, review, purchase_date, car_make, car_model, car_year, #sentiment,
+                  id):
+        self.dealership = dealership
+        self.name = name
+        self.purchase = purchase
+        self.review = review
+        self.purchase_date = purchase_date
+        self.car_make = car_make
+        self.car_model = car_model
+        self.car_year = car_year
+        #self.sentiment = sentiment
+        self.id = id
