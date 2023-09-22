@@ -38,16 +38,21 @@ logger = logging.getLogger(__name__)
 # def registration_request(request):
 # ...
 
+def get_index(request):
+    context = {}
+    if request.method == "GET":
+        return render(request, 'djangoapp/index.html', context)
+    
 # Update the `get_dealerships` view to render the index page with a list of dealerships
 def get_dealerships(request):
+
     if request.method == "GET":
         url = "https://us-south.functions.appdomain.cloud/api/v1/web/76b33dfb-93ac-4000-b268-73b293d81b15/dealership-package/dealer-get.json"
         # Get dealers from the URL
         dealerships = get_dealers_from_cf(url)
         # Concat all dealer's short name
-        dealer_names = ' '.join([dealer.short_name for dealer in dealerships])
-        # Return a list of dealer short name
-        return HttpResponse(dealer_names)
+        context = {"dealership_list": dealerships}
+        return render(request, 'djangoapp/dealers.html', context)
     
 
 def get_dealer_details(request, dealer_id):
@@ -57,14 +62,9 @@ def get_dealer_details(request, dealer_id):
         # Get reviews from the URL
         reviews = get_dealer_reviews_from_cf(url, dealer_id)
         
-        # Create a list of all review content
-        review_contents = [review.review for review in reviews]
-        
-        # Convert list to a single string with spaces
-        review_text = ' '.join(review_contents)
-        
-        # Return the review text
-        return HttpResponse(review_text)
+       # Concat all dealer's short name
+        context = {"reviews_list": reviews}
+        return render(request, 'djangoapp/dealer_details.html', context)
 
 def get_contacts(request):
     context = {}
@@ -75,6 +75,11 @@ def get_aboutus(request):
     context = {}
     if request.method == "GET":
         return render(request, 'djangoapp/about.html', context)
+    
+def add_review(request):
+    context = {}
+    if request.method == "GET":
+       return render(request, 'djangoapp/add_review.html', context)
 
 def get_user_logged_in(request):
     if request.user.is_authenticated == True:

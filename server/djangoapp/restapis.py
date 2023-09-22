@@ -12,6 +12,7 @@ def get_request(url, **kwargs):
             print(f"Network exception occurred: {e}")
             return None
 
+        print(response.text)
         status_code = response.status_code
         print("With status {} ".format(status_code))
 
@@ -46,28 +47,37 @@ def get_dealers_from_cf(url, **kwargs):
 
 def get_dealer_reviews_from_cf(url, dealer_id):
     results = []
-    # Call get_request with a URL and dealerId parameters
-    json_result = get_request(url, dealerId=dealer_id)
+    
+    # Call get_request with a URL
+    json_result = get_request(url)
 
     if json_result:
         # Get the row list in JSON as reviews
         reviews = json_result['result']
+        
         # For each review object
         for review in reviews:
             # Get its content in `doc` object
             review_doc = review["doc"]
-            # Create a DealerReview object with values in `doc` object
-            review_obj = DealerReview(dealership=review_doc["dealership"], 
-                                      name=review_doc["name"], 
-                                      purchase=review_doc["purchase"],
-                                      review=review_doc["review"],
-                                      purchase_date=review_doc["purchase_date"],
-                                      car_make=review_doc["car_make"],
-                                      car_model=review_doc["car_model"],
-                                      car_year=review_doc["car_year"],
-                                      #sentiment=review_doc["sentiment"],
-                                      id=review_doc["id"])
-            results.append(review_obj)
+            
+            # Check if the dealership id in the review matches the provided dealer_id
+            if review_doc["id"] == dealer_id:
+
+                sentiment_default = "basic_sentiment"
+                
+                # Create a DealerReview object with values in `doc` object
+                review_obj = DealerReview(dealership=review_doc["dealership"], 
+                                          name=review_doc["name"], 
+                                          purchase=review_doc["purchase"],
+                                          purchase_date=review_doc["purchase_date"],
+                                          review=review_doc["review"],
+                                          car_make=review_doc["car_make"],
+                                          car_model=review_doc["car_model"],
+                                          car_year=review_doc["car_year"],
+                                          sentiment=sentiment_default,
+                                          id=review_doc["id"])
+
+                results.append(review_obj)
 
     return results
 
